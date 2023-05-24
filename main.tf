@@ -61,7 +61,10 @@ resource "google_compute_instance" "dev" {
       "sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable\"",
       "apt-cache policy docker.io",
       "sudo apt -y install docker.io",
-      ""
+      "git clone https://github.com/javed-shaikh-devops/qbe-demo.git",
+      "sudo docker build qbe-demo/. -t qbe-demo",
+      "sudo docker run -d -p 80:80 -p 443:443 qbe-demo"
+
     ]
   }
   # Ensure firewall rule is provisioned before server, so that SSH doesn't fail.
