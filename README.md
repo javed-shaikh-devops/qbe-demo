@@ -1,6 +1,6 @@
 ## QBE Demo
 
-![image](https://github.com/javed-shaikh-devops/qbe-demo/blob/main/arch.png)
+![image](https://github.com/javed-shaikh-devops/qbe-demo/blob/main/imgs/arch.png)
 
 ## Problem Statement 
 
@@ -37,4 +37,32 @@ The documentation helps understand the creation of resources on GCP with gcloud 
  -default.conf
  -index.html
 
+## Gcloud util - Creating Project and Service account 
 
+1. Download Gcloud for Linux 
+  https://cloud.google.com/sdk/docs/install-sdk#linux
+2. Unzip to local 
+   gunzip google-cloud-cli-432.0.0-linux-x86_64.tar.gz
+   tar -xvf google-cloud-cli-432.0.0-linux-x86_64.tar
+3. Add the gcloud bin folder to $PATH variable to discover gcloud anywhere on the machine
+4. Activate the gcloud 
+    
+ ![image](https://github.com/javed-shaikh-devops/qbe-demo/blob/main/imgs/create_project.png)
+ ![image](https://github.com/javed-shaikh-devops/qbe-demo/blob/main/imgs/create_project_1.png)
+ ![image](https://github.com/javed-shaikh-devops/qbe-demo/blob/main/imgs/create_project_2.png)
+ 
+5. List accounts
+   To list the accounts whose credentials are stored on the local system, 
+   run gcloud auth list:
+ 
+![image](https://github.com/javed-shaikh-devops/qbe-demo/blob/main/imgs/auth_list.png)
+
+6. Set to the newly created Project 
+![image](https://github.com/javed-shaikh-devops/qbe-demo/blob/main/imgs/set_project.png)
+
+7. Create a new Service account for terraform to connect and create new resources 
+![image](https://github.com/javed-shaikh-devops/qbe-demo/blob/main/imgs/create_service_account.png)
+
+8. Create google key JSON file for this service account and this would help in connecting the terraform with Google Cloud
+ 
+ 
