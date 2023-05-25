@@ -90,3 +90,7 @@ The documentation helps understand the creation of resources on GCP with gcloud 
 	- Git clone repo https://github.com/javed-shaikh-devops/qbe-demo.git
 	- Build the docker image 
 	- Run the Docker container in detach mode
+
+## Output 
+curl https://<IP>:<PORT> --insecure
+![image](https://github.com/javed-shaikh-devops/qbe-demo/blob/main/imgs/output.png)
