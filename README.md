@@ -92,6 +92,6 @@ The documentation helps understand the creation of resources on GCP with gcloud 
 	- Run the Docker container in detach mode
 
 ## Output 
-curl https://<IP>:<PORT> --insecure
+curl "https://<IP>:<PORT>" --insecure
 
-![image](https://github.com/javed-shaikh-devops/qbe-demo/blob/main/imgs/output.png)
+![image](https://github.com/javed-shaikh-devops/qbe-demo/blob/main/imgs/output_curl.png)
