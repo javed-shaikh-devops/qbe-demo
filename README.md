@@ -30,11 +30,11 @@ The documentation helps understand the creation of resources on GCP with gcloud 
 
 ## Folder Structure:
 
--main.tf
--terraform.tfvars
--variables.tf
--Dockerfile
--default.conf
--index.html
+- main.tf
+- terraform.tfvars
+- variables.tf
+- Dockerfile
+- default.conf
+- index.html
 
 
