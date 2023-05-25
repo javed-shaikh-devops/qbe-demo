@@ -1,9 +1,12 @@
+# Define Provide values
 provider "google" {
-  project = var.project
-  region  = var.region
-  credentials = file("credentials.json")
+  project     = var.project              // Defined in terraform.tfvars
+  region      = var.region               // Defined in terraform.tfvars
+  credentials = file("credentials.json") // PATH to SA account key to generate resources (Project Owner)
 }
-resource "google_compute_firewall" "firewall" {
+
+# Firewall rule to all port 22
+resource "google_compute_firewall" "ssh-allow-firewall" {
   name    = "gritfy-firewall-externalssh"
   network = "default"
   allow {
@@ -13,7 +16,9 @@ resource "google_compute_firewall" "firewall" {
   source_ranges = ["0.0.0.0/0"] # Not So Secure. Limit the Source Range
   target_tags   = ["externalssh"]
 }
-resource "google_compute_firewall" "webserverrule" {
+
+# Firewall rule to all port 443
+resource "google_compute_firewall" "https-allow-firewall" {
   name    = "gritfy-webserver"
   network = "default"
   allow {
@@ -23,13 +28,16 @@ resource "google_compute_firewall" "webserverrule" {
   source_ranges = ["0.0.0.0/0"] # Not So Secure. Limit the Source Range
   target_tags   = ["webserver"]
 }
-# We create a public IP address for our google compute instance to utilize
+
+# Create a public IP address for devserver google compute instance
 resource "google_compute_address" "static" {
   name       = "vm-public-address"
   project    = var.project
   region     = var.region
-  depends_on = [google_compute_firewall.firewall]
+  depends_on = [google_compute_firewall.ssh-allow-firewall]
 }
+
+#Create compute Instance
 resource "google_compute_instance" "dev" {
   name         = "devserver"
   machine_type = "f1-micro"
@@ -68,7 +76,7 @@ resource "google_compute_instance" "dev" {
     ]
   }
   # Ensure firewall rule is provisioned before server, so that SSH doesn't fail.
-  depends_on = [google_compute_firewall.firewall, google_compute_firewall.webserverrule]
+  depends_on = [google_compute_firewall.ssh-allow-firewall, google_compute_firewall.https-allow-firewall]
   service_account {
     email  = var.email
     scopes = ["compute-ro"]

@@ -3,15 +3,15 @@ variable "region" {
   default = "us-central"
 }
 variable "project" {
-  type = string
+  type    = string
   default = "qbe-24052023-demo"
 }
 variable "user" {
-  type = string
+  type    = string
   default = "javedshaikh_gmail_com"
 }
 variable "email" {
-  type = string
+  type    = string
   default = "tf-gcp-sa@qbe-24052023-demo.iam.gserviceaccount.com"
 }
 variable "privatekeypath" {
