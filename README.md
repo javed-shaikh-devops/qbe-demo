@@ -93,4 +93,5 @@ The documentation helps understand the creation of resources on GCP with gcloud 
 
 ## Output 
 curl https://<IP>:<PORT> --insecure
+
 ![image](https://github.com/javed-shaikh-devops/qbe-demo/blob/main/imgs/output.png)
