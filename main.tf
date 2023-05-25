@@ -18,7 +18,7 @@ resource "google_compute_firewall" "webserverrule" {
   network = "default"
   allow {
     protocol = "tcp"
-    ports    = ["80", "443"]
+    ports    = ["443"]
   }
   source_ranges = ["0.0.0.0/0"] # Not So Secure. Limit the Source Range
   target_tags   = ["webserver"]
@@ -63,7 +63,7 @@ resource "google_compute_instance" "dev" {
       "sudo apt -y install docker.io",
       "git clone https://github.com/javed-shaikh-devops/qbe-demo.git",
       "sudo docker build qbe-demo/. -t qbe-demo",
-      "sudo docker run -d -p 80:80 -p 443:443 qbe-demo"
+      "sudo docker run -d -p 443:443 qbe-demo"
 
     ]
   }

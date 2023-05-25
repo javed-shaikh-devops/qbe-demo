@@ -18,16 +18,6 @@ Should generate the following plain text response: world
 
 The documentation helps understand the creation of resources on GCP with gcloud util and terraform, creating and deploying image onto the compute instance.
 
-1. Compute instance 
-	- Image : debian-cloud/debian-10
-	- machine_type : f1-micro
-	- network : default 
-	- tags : externalssh, webserver
-	- provisioner : remote-exec
-2. Firewall
-	- protocal : tcp
-	- ports : 22, 443, 80
-
 ## Folder Structure:
 
  -main.tf
@@ -36,6 +26,7 @@ The documentation helps understand the creation of resources on GCP with gcloud 
  -Dockerfile
  -default.conf
  -index.html
+ -imgs/
 
 ## Gcloud util - Creating Project and Service account 
 
@@ -64,5 +55,38 @@ The documentation helps understand the creation of resources on GCP with gcloud 
 ![image](https://github.com/javed-shaikh-devops/qbe-demo/blob/main/imgs/create_service_account.png)
 
 8. Create google key JSON file for this service account and this would help in connecting the terraform with Google Cloud
- 
- 
+   Save the key to credentials.json
+
+## Terraform - Creating resources Firewall, Compute Instance
+
+    
+ 1. Compute instance 
+	- Image : debian-cloud/debian-10
+	- machine_type : f1-micro
+	- network : default 
+	- tags : externalssh, webserver
+	- provisioner : remote-exec
+2. Firewall
+	- protocal : tcp
+	- ports : 22, 443
+3. Static Address
+    - Dependency - Firewall 
+	
+## Dockerfile
+
+	- ALPINE_VERSION=3.17.3
+	- NGINX_VERSION=1.23.4
+	- OPENSSL - create and inject self signed certificate
+	- COPY self-signed.key and self-signed.crt from alpine to nginx
+    - Setting the default config for listen port 443
+
+## Provisioner "remote-exec"	
+	- Connect to the Compute instance over ssh (port 22) using static IP address
+	- user to connect defined in vailables.tf as javedshaikh_gmail_com
+ 	- Service account to connect defined in vailables.tf as tf-gcp-sa@qbe-24052023-demo.iam.gserviceaccount.com
+	- Local host user public and private key defined under privatekeypath and publickeypath vailables
+	- Install Dependencies
+	- Install Docker on newly procured compute engine VM
+	- Git clone repo https://github.com/javed-shaikh-devops/qbe-demo.git
+	- Build the docker image 
+	- Run the Docker container in detach mode
